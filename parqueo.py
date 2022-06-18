@@ -135,7 +135,60 @@ class Configuracion:
         self.boton = Button(self.canvas_configuracion, text='Ok', command=self.guardar_configuracion)
         self.boton.place(x=145,y=465, width=100)
         self.boton = Button(self.canvas_configuracion, text='Cancelar', command=self.ventana_cambiar_menu)
-        self.boton.place(x=250,y=465, width=100)   
+        self.boton.place(x=250,y=465, width=100)
+
+    def guardar_configuracion(self):
+        f = open('configuración.dat', 'w')
+        espacio = self.entrada_espacio.get()
+        if int(espacio) <1:
+            return messagebox.showerror('Error', 'La cantidad de espacio debe de ser mayor o igual a 1')
+        precio = self.entrada_precio.get()
+        if float(precio) <0:
+            return messagebox.showerror('Error', 'El pago minimo debe de ser mayor o igual a 0')
+        pago = self.entrada_pago.get()
+        if float(pago) <0:
+            return messagebox.showerror('Error', 'La precio debe de ser mayor o igual a 0')
+        correo = self.entrada_correo.get()
+        minutos_salir = self.entrada_minuto_salir.get()
+        if int(minutos_salir) <0:
+            return messagebox.showerror('Error', 'Los minutos maximos para salir deben de ser mayor o igual a 0')
+        cantidad_monedas = self.entrada_cantidad_monedas.get()
+        if int(cantidad_monedas) <0 or int(cantidad_monedas)>3:
+            return messagebox.showerror('Error', 'Los tipos de monedas deben de ser mayor o igual a 0 y menor o igual 3')
+        monedas1 = self.entrada_monedas1.get()
+        if int(monedas1) <0:
+            return messagebox.showerror('Error', 'Las monedas deben de ser mayor o igual a 0')
+        monedas2 = self.entrada_monedas2.get()
+        if int(monedas2) <0:
+            return messagebox.showerror('Error', 'Las monedas deben de ser mayor o igual a 0')
+        monedas3 = self.entrada_monedas3.get()
+        if int(monedas3) <0:
+            return messagebox.showerror('Error', 'Las monedas deben de ser mayor o igual a 0')
+        cantidad_billetes = self.entrada_cantidad_billetes.get()
+        if int(cantidad_billetes) <0 or int(cantidad_billetes)>5:
+            return messagebox.showerror('Error', 'Los tipos de billetes deben de ser mayor o igual a 0 y menor o igual 3')
+        billetes1 = self.entrada_billetes1.get()
+        if int(billetes1) <0:
+            return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
+        billetes2 = self.entrada_billetes2.get()
+        if int(billetes2) <0:
+            return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
+        billetes3 = self.entrada_billetes3.get()
+        if int(billetes3) <0:
+            return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
+        billetes4 = self.entrada_billetes4.get()
+        if int(billetes4) <0:
+            return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
+        billetes5 = self.entrada_billetes5.get()
+        if int(billetes5) <0:
+            return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
+        f.writelines([espacio+'\n', precio+'\n', pago+'\n', correo+'\n', minutos_salir+'\n', cantidad_monedas+'\n', monedas1+'\n', monedas2+'\n', monedas3+'\n', cantidad_billetes+'\n', billetes1+'\n', billetes2+'\n', billetes3+'\n', billetes4+'\n', billetes5+'\n'])
+        f.close()
+         
+    def ventana_cambiar_menu(self):
+        self.canvas_configuracion.destroy()
+        self.master.geometry('500x500')
+        MenuPrincipal(self.master) 
 
 window = Tk()
 MenuPrincipal(window)
