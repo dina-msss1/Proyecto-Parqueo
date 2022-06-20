@@ -488,8 +488,32 @@ class CargarCajero:
             self.label_saldo_total_billetest5.config(text=cajero[conf[12]]*int(conf[12]))
             self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
             self.label_saldo_total_total__cajero.config(text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])+cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+           
+            f = open('cajero.dat','w')
+            f.write(str(cajero))
+            f.close()
 
         def vaciar():
+
+            f = open('configuración.dat','r')
+
+            conf = []    
+            for line in f:
+                conf.append(line[:-1])
+            f.close()
+
+            f = open('cajero.dat','r')
+            cajero = eval(f.read())
+
+            cajero[conf[5]] = int("0")
+            cajero[conf[6]] = int("0")
+            cajero[conf[7]] = int("0")
+            cajero[conf[8]] = int("0")
+            cajero[conf[9]] = int("0")
+            cajero[conf[10]] = int("0")
+            cajero[conf[11]] = int("0")
+            cajero[conf[12]] = int("0")
+
             self.label_antescargar_cantidad_monedast1.config(text="0")
             self.label_antescargar_cantidad_monedast2.config(text="0")
             self.label_antescargar_cantidad_monedast3.config(text="0")
