@@ -68,7 +68,19 @@ class MenuPrincipal:
         self.canvas_menu.destroy()
         self.master.geometry('500x500')
         CajeroParqueo(self.master)
-
+    def ventana_cambiar_salida_vehiculo(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        SalidaVehiculo(self.master)
+    def ventana_cambiar_ayuda(self):
+        ruta = 'manual_de_usuario_parqueo.pdf'
+        os.system(ruta)
+    def ventana_cambiar_acerca_de(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        AcercaDe(self.master)
+    def ventana_cambiar_salir(self):
+        self.master.destroy()
 
 class Configuracion:
     def __init__(self, master):
@@ -105,10 +117,9 @@ class Configuracion:
         self.entrada_minuto_salir = Entry(self.canvas_configuracion)
         self.entrada_minuto_salir.place(x=440, y=190, width=50)
         
-        self.label = Label(self.canvas_configuracion, text='Tipos de moneda (máximo 3 tipos, enteros >= 0):')
+        self.label = Label(self.canvas_configuracion, text='Tipos de moneda (Monedas de CR):')
         self.label.place(x=10,y=230)
-        self.entrada_cantidad_monedas = Entry(self.canvas_configuracion)
-        self.entrada_cantidad_monedas.place(x=440, y=230, width=50)
+
         
         self.label = Label(self.canvas_configuracion, text='Moneda 1, la de menor denominación (ejemplo 50)')
         self.label.place(x=10,y=250)
@@ -125,10 +136,8 @@ class Configuracion:
         self.entrada_monedas3 = Entry(self.canvas_configuracion)
         self.entrada_monedas3.place(x=440, y=290, width=50)
         
-        self.label = Label(self.canvas_configuracion, text='Tipos de billetes (máximo 5 tipos, enteros >= 0):')
+        self.label = Label(self.canvas_configuracion, text='Tipos de billetes (Billetes de CR):')
         self.label.place(x=10,y=330)
-        self.entrada_cantidad_billetes = Entry(self.canvas_configuracion)
-        self.entrada_cantidad_billetes.place(x=440, y=330, width=50)
 
         self.label = Label(self.canvas_configuracion, text='Billete 1, el de menor denominación (ejemplo 1000)')
         self.label.place(x=10,y=350)
@@ -175,9 +184,6 @@ class Configuracion:
         minutos_salir = self.entrada_minuto_salir.get()
         if int(minutos_salir) <0:
             return messagebox.showerror('Error', 'Los minutos maximos para salir deben de ser mayor o igual a 0')
-        cantidad_monedas = self.entrada_cantidad_monedas.get()
-        if int(cantidad_monedas) <0 or int(cantidad_monedas)>3:
-            return messagebox.showerror('Error', 'Los tipos de monedas deben de ser mayor o igual a 0 y menor o igual 3')
         monedas1 = self.entrada_monedas1.get()
         if int(monedas1) <0:
             return messagebox.showerror('Error', 'Las monedas deben de ser mayor o igual a 0')
@@ -187,9 +193,6 @@ class Configuracion:
         monedas3 = self.entrada_monedas3.get()
         if int(monedas3) <0:
             return messagebox.showerror('Error', 'Las monedas deben de ser mayor o igual a 0')
-        cantidad_billetes = self.entrada_cantidad_billetes.get()
-        if int(cantidad_billetes) <0 or int(cantidad_billetes)>5:
-            return messagebox.showerror('Error', 'Los tipos de billetes deben de ser mayor o igual a 0 y menor o igual 3')
         billetes1 = self.entrada_billetes1.get()
         if int(billetes1) <0:
             return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
@@ -205,7 +208,7 @@ class Configuracion:
         billetes5 = self.entrada_billetes5.get()
         if int(billetes5) <0:
             return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
-        f.writelines([espacio+'\n', precio+'\n', pago+'\n', correo+'\n', minutos_salir+'\n', cantidad_monedas+'\n', monedas1+'\n', monedas2+'\n', monedas3+'\n', cantidad_billetes+'\n', billetes1+'\n', billetes2+'\n', billetes3+'\n', billetes4+'\n', billetes5+'\n'])
+        f.writelines([espacio+'\n', precio+'\n', pago+'\n', correo+'\n', minutos_salir+'\n', monedas1+'\n', monedas2+'\n', monedas3+'\n', billetes1+'\n', billetes2+'\n', billetes3+'\n', billetes4+'\n', billetes5+'\n'])
         f.close()
          
     def ventana_cambiar_menu(self):
@@ -227,7 +230,7 @@ class CargarCajero:
         cajero = eval(f.read())
        
         self.master = master
-        self.master.geometry('800x500')
+        self.master.geometry('800x400')
         self.canvas_cargar = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_cargar.place(x=0,y=0)
         self.label_cargar = Label(self.canvas_cargar, text='PARQUEO - CARGAR CAJERO')
@@ -242,25 +245,25 @@ class CargarCajero:
         
         self.label_cargar = Label(self.canvas_cargar, text='DENOMINACIÓN')
         self.label_cargar.grid(row=2,column=0)
-        self.label_denominacion_monedast1 = Label(self.canvas_cargar, text='Monedas de '+conf[6])
+        self.label_denominacion_monedast1 = Label(self.canvas_cargar, text='Monedas de '+conf[5])
         self.label_denominacion_monedast1.grid(row=3,column=0)
-        self.label_denominacion_monedast2 = Label(self.canvas_cargar, text='Monedas de '+conf[7])
+        self.label_denominacion_monedast2 = Label(self.canvas_cargar, text='Monedas de '+conf[6])
         self.label_denominacion_monedast2.grid(row=4,column=0)
-        self.label_denominacion_monedast3 = Label(self.canvas_cargar, text='Monedas de '+conf[8])
+        self.label_denominacion_monedast3 = Label(self.canvas_cargar, text='Monedas de '+conf[7])
         self.label_denominacion_monedast3.grid(row=5,column=0)
         self.label_denominacion_total_monedas = Label(self.canvas_cargar, text='TOTAL DE MONEDAS')
         self.label_denominacion_total_monedas.grid(row=6,column=0)
         self.label_denominacion_espacio1 = Label(self.canvas_cargar, text='')
         self.label_denominacion_espacio1.grid(row=7,column=0)
-        self.label_denominacion_billetest1 = Label(self.canvas_cargar, text='Billetes de '+conf[10])
+        self.label_denominacion_billetest1 = Label(self.canvas_cargar, text='Billetes de '+conf[8])
         self.label_denominacion_billetest1.grid(row=8,column=0)
-        self.label_denominacion_billetest2 = Label(self.canvas_cargar, text='Billetes de '+conf[11])
+        self.label_denominacion_billetest2 = Label(self.canvas_cargar, text='Billetes de '+conf[9])
         self.label_denominacion_billetest2.grid(row=9,column=0)
-        self.label_denominacion_billetest3 = Label(self.canvas_cargar, text='Billetes de '+conf[12])
+        self.label_denominacion_billetest3 = Label(self.canvas_cargar, text='Billetes de '+conf[10])
         self.label_denominacion_billetest3.grid(row=10,column=0)
-        self.label_denominacion_billetest4 = Label(self.canvas_cargar, text='Billetes de '+conf[13])
+        self.label_denominacion_billetest4 = Label(self.canvas_cargar, text='Billetes de '+conf[11])
         self.label_denominacion_billetest4.grid(row=11,column=0)
-        self.label_denominacion_billetest5 = Label(self.canvas_cargar, text='Billetes de '+conf[14])
+        self.label_denominacion_billetest5 = Label(self.canvas_cargar, text='Billetes de '+conf[12])
         self.label_denominacion_billetest5.grid(row=12,column=0)
         self.label_denominacion_total_billetes = Label(self.canvas_cargar, text='TOTAL DE BILLETES')
         self.label_denominacion_total_billetes.grid(row=13,column=0)
@@ -271,52 +274,52 @@ class CargarCajero:
 
         self.label_cargar = Label(self.canvas_cargar, text='CANTIDAD')
         self.label_cargar.grid(row=2,column=1)
-        self.label_antescargar_cantidad_monedast1 = Label(self.canvas_cargar, text=cajero[conf[6]])
+        self.label_antescargar_cantidad_monedast1 = Label(self.canvas_cargar, text=cajero[conf[5]])
         self.label_antescargar_cantidad_monedast1.grid(row=3,column=1)
-        self.label_antescargar_cantidad_monedast2 = Label(self.canvas_cargar, text=cajero[conf[7]])
+        self.label_antescargar_cantidad_monedast2 = Label(self.canvas_cargar, text=cajero[conf[6]])
         self.label_antescargar_cantidad_monedast2.grid(row=4,column=1)
-        self.label_antescargar_cantidad_monedast3 = Label(self.canvas_cargar, text=cajero[conf[8]])
+        self.label_antescargar_cantidad_monedast3 = Label(self.canvas_cargar, text=cajero[conf[7]])
         self.label_antescargar_cantidad_monedast3.grid(row=5,column=1)
-        self.label_antescargar_cantidad_total_monedas = Label(self.canvas_cargar, text=cajero[conf[6]]+cajero[conf[7]]+cajero[conf[8]])
+        self.label_antescargar_cantidad_total_monedas = Label(self.canvas_cargar, text=cajero[conf[5]]+cajero[conf[6]]+cajero[conf[7]])
         self.label_antescargar_cantidad_total_monedas.grid(row=6,column=1)
         self.label_antescargar_cantidad_espacio1 = Label(self.canvas_cargar, text='')
         self.label_antescargar_cantidad_espacio1.grid(row=7,column=1)
-        self.label_antescargar_cantidad_billetest1 = Label(self.canvas_cargar, text=cajero[conf[10]])
+        self.label_antescargar_cantidad_billetest1 = Label(self.canvas_cargar, text=cajero[conf[8]])
         self.label_antescargar_cantidad_billetest1.grid(row=8,column=1)
-        self.label_antescargar_cantidad_billetest2 = Label(self.canvas_cargar, text=cajero[conf[11]])
+        self.label_antescargar_cantidad_billetest2 = Label(self.canvas_cargar, text=cajero[conf[9]])
         self.label_antescargar_cantidad_billetest2.grid(row=9,column=1)
-        self.label_antescargar_cantidad_billetest3 = Label(self.canvas_cargar, text=cajero[conf[12]])
+        self.label_antescargar_cantidad_billetest3 = Label(self.canvas_cargar, text=cajero[conf[10]])
         self.label_antescargar_cantidad_billetest3.grid(row=10,column=1)
-        self.label_antescargar_cantidad_billetest4 = Label(self.canvas_cargar, text=cajero[conf[13]])
+        self.label_antescargar_cantidad_billetest4 = Label(self.canvas_cargar, text=cajero[conf[11]])
         self.label_antescargar_cantidad_billetest4.grid(row=11,column=1)
-        self.label_antescargar_cantidad_billetest5 = Label(self.canvas_cargar, text=cajero[conf[14]])
+        self.label_antescargar_cantidad_billetest5 = Label(self.canvas_cargar, text=cajero[conf[12]])
         self.label_antescargar_cantidad_billetest5.grid(row=12,column=1)
-        self.label_antescargar_cantidad_total_billetes = Label(self.canvas_cargar, text=cajero[conf[10]]+cajero[conf[11]]+cajero[conf[12]]+cajero[conf[13]]+cajero[conf[14]])
+        self.label_antescargar_cantidad_total_billetes = Label(self.canvas_cargar, text=cajero[conf[8]]+cajero[conf[9]]+cajero[conf[10]]+cajero[conf[11]]+cajero[conf[12]])
         self.label_antescargar_cantidad_total_billetes.grid(row=13,column=1)
         
         self.label_cargar = Label(self.canvas_cargar, text='TOTAL')
         self.label_cargar.grid(row=2,column=2)
-        self.label_antescargar_total_monedast1 = Label(self.canvas_cargar, text=cajero[conf[6]]*int(conf[6]))
+        self.label_antescargar_total_monedast1 = Label(self.canvas_cargar, text=cajero[conf[5]]*int(conf[5]))
         self.label_antescargar_total_monedast1.grid(row=3,column=2)
-        self.label_antescargar_total_monedast2 = Label(self.canvas_cargar, text=cajero[conf[7]]*int(conf[7]))
+        self.label_antescargar_total_monedast2 = Label(self.canvas_cargar, text=cajero[conf[6]]*int(conf[6]))
         self.label_antescargar_total_monedast2.grid(row=4,column=2)
-        self.label_antescargar_total_monedast3 = Label(self.canvas_cargar, text=cajero[conf[8]]*int(conf[8]))
+        self.label_antescargar_total_monedast3 = Label(self.canvas_cargar, text=cajero[conf[7]]*int(conf[7]))
         self.label_antescargar_total_monedast3.grid(row=5,column=2)
-        self.label_antescargar_total_total_monedas = Label(self.canvas_cargar, text=cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])+cajero[conf[8]]*int(conf[8]))
+        self.label_antescargar_total_total_monedas = Label(self.canvas_cargar, text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7]))
         self.label_antescargar_total_total_monedas.grid(row=6,column=2)
         self.label_antescargar_total_espacio1 = Label(self.canvas_cargar, text='')
         self.label_antescargar_total_espacio1.grid(row=7,column=2)
-        self.label_antescargar_total_billetest1 = Label(self.canvas_cargar, text=cajero[conf[10]]*int(conf[10]))
+        self.label_antescargar_total_billetest1 = Label(self.canvas_cargar, text=cajero[conf[8]]*int(conf[8]))
         self.label_antescargar_total_billetest1.grid(row=8,column=2)
-        self.label_antescargar_total_billetest2 = Label(self.canvas_cargar, text=cajero[conf[11]]*int(conf[11]))
+        self.label_antescargar_total_billetest2 = Label(self.canvas_cargar, text=cajero[conf[9]]*int(conf[9]))
         self.label_antescargar_total_billetest2.grid(row=9,column=2)
-        self.label_antescargar_total_billetest3 = Label(self.canvas_cargar, text=cajero[conf[12]]*int(conf[12]))
+        self.label_antescargar_total_billetest3 = Label(self.canvas_cargar, text=cajero[conf[10]]*int(conf[10]))
         self.label_antescargar_total_billetest3.grid(row=10,column=2)
-        self.label_antescargar_total_billetest4 = Label(self.canvas_cargar, text=cajero[conf[13]]*int(conf[13]))
+        self.label_antescargar_total_billetest4 = Label(self.canvas_cargar, text=cajero[conf[11]]*int(conf[11]))
         self.label_antescargar_total_billetest4.grid(row=11,column=2)
-        self.label_antescargar_total_billetest5 = Label(self.canvas_cargar, text=cajero[conf[14]]*int(conf[14]))
+        self.label_antescargar_total_billetest5 = Label(self.canvas_cargar, text=cajero[conf[12]]*int(conf[12]))
         self.label_antescargar_total_billetest5.grid(row=12,column=2)
-        self.label_antescargar_total_total_billetes = Label(self.canvas_cargar, text=cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12])+cajero[conf[13]]*int(conf[13])+cajero[conf[14]]*int(conf[14]))
+        self.label_antescargar_total_total_billetes = Label(self.canvas_cargar, text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
         self.label_antescargar_total_total_billetes.grid(row=13,column=2)
 
         self.label_cargar = Label(self.canvas_cargar, text='  CANTIDAD')
@@ -447,59 +450,114 @@ class CargarCajero:
         self.label_saldo_total_total__cajero = Label(self.canvas_cargar, text='0')
         self.label_saldo_total_total__cajero.grid(row=15,column=12)
 
+
+
         # Botones cargar cajero
 
         def guardar_cajero():
-            cajero[conf[6]] += int(self.label_carga_cantidad_monedast1.get())
-            cajero[conf[7]] += int(self.label_carga_cantidad_monedast2.get())
-            cajero[conf[8]] += int(self.label_carga_cantidad_monedast3.get())
+            cajero[conf[5]] += int(self.label_carga_cantidad_monedast1.get())
+            cajero[conf[6]] += int(self.label_carga_cantidad_monedast2.get())
+            cajero[conf[7]] += int(self.label_carga_cantidad_monedast3.get())
             
-            cajero[conf[10]] += int(self.label_carga_cantidad_billetest1.get())
-            cajero[conf[11]] += int(self.label_carga_cantidad_billetest2.get())
-            cajero[conf[12]] += int(self.label_carga_cantidad_billetest3.get())
-            cajero[conf[13]] += int(self.label_carga_cantidad_billetest4.get())
-            cajero[conf[14]] += int(self.label_carga_cantidad_billetest5.get())
+            cajero[conf[8]] += int(self.label_carga_cantidad_billetest1.get())
+            cajero[conf[9]] += int(self.label_carga_cantidad_billetest2.get())
+            cajero[conf[10]] += int(self.label_carga_cantidad_billetest3.get())
+            cajero[conf[11]] += int(self.label_carga_cantidad_billetest4.get())
+            cajero[conf[12]] += int(self.label_carga_cantidad_billetest5.get())
             print(cajero)
 
-            self.label_saldo_cantidad_monedast1.config(text=cajero[conf[6]])
-            self.label_saldo_cantidad_monedast2.config(text=cajero[conf[7]])
-            self.label_saldo_cantidad_monedast3.config(text=cajero[conf[8]])
-            self.label_saldo_cantidad_total_monedas.config(text=cajero[conf[6]]+cajero[conf[7]]+cajero[conf[8]])
-            self.label_saldo_cantidad_billetest1.config(text=cajero[conf[10]])
-            self.label_saldo_cantidad_billetest2.config(text=cajero[conf[11]])
-            self.label_saldo_cantidad_billetest3.config(text=cajero[conf[12]])
-            self.label_saldo_cantidad_billetest4.config(text=cajero[conf[13]])
-            self.label_saldo_cantidad_billetest5.config(text=cajero[conf[14]])
-            self.label_saldo_cantidad_total_billetes.config(text=cajero[conf[10]]+cajero[conf[11]]+cajero[conf[12]]+cajero[conf[13]]+cajero[conf[14]])
+            self.label_saldo_cantidad_monedast1.config(text=cajero[conf[5]])
+            self.label_saldo_cantidad_monedast2.config(text=cajero[conf[6]])
+            self.label_saldo_cantidad_monedast3.config(text=cajero[conf[7]])
+            self.label_saldo_cantidad_total_monedas.config(text=cajero[conf[5]]+cajero[conf[6]]+cajero[conf[7]])
+            self.label_saldo_cantidad_billetest1.config(text=cajero[conf[8]])
+            self.label_saldo_cantidad_billetest2.config(text=cajero[conf[9]])
+            self.label_saldo_cantidad_billetest3.config(text=cajero[conf[10]])
+            self.label_saldo_cantidad_billetest4.config(text=cajero[conf[11]])
+            self.label_saldo_cantidad_billetest5.config(text=cajero[conf[12]])
+            self.label_saldo_cantidad_total_billetes.config(text=cajero[conf[8]]+cajero[conf[9]]+cajero[conf[10]]+cajero[conf[11]]+cajero[conf[12]])
             
-            self.label_saldo_total_monedast1.config(text=cajero[conf[6]]*int(conf[6]))
-            self.label_saldo_total_monedast2.config(text=cajero[conf[7]]*int(conf[7]))
-            self.label_saldo_total_monedast3.config(text=cajero[conf[8]]*int(conf[8]))
-            self.label_saldo_total_total_monedas.config(text=cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])+cajero[conf[8]]*int(conf[8]))
-            self.label_saldo_total_billetest1.config(text=cajero[conf[10]]*int(conf[10]))
-            self.label_saldo_total_billetest2.config(text=cajero[conf[11]]*int(conf[11]))
-            self.label_saldo_total_billetest3.config(text=cajero[conf[12]]*int(conf[12]))
-            self.label_saldo_total_billetest4.config(text=cajero[conf[13]]*int(conf[13]))
-            self.label_saldo_total_billetest5.config(text=cajero[conf[14]]*int(conf[14]))
-            self.label_saldo_total_total_billetes.config(text=cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12])+cajero[conf[13]]*int(conf[13])+cajero[conf[14]]*int(conf[14]))
-            self.label_saldo_total_total__cajero.config(text=cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])+cajero[conf[8]]*int(conf[8])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12])+cajero[conf[13]]*int(conf[13])+cajero[conf[14]]*int(conf[14]))
+            self.label_saldo_total_monedast1.config(text=cajero[conf[5]]*int(conf[5]))
+            self.label_saldo_total_monedast2.config(text=cajero[conf[6]]*int(conf[6]))
+            self.label_saldo_total_monedast3.config(text=cajero[conf[7]]*int(conf[7]))
+            self.label_saldo_total_total_monedas.config(text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7]))
+            self.label_saldo_total_billetest1.config(text=cajero[conf[8]]*int(conf[8]))
+            self.label_saldo_total_billetest2.config(text=cajero[conf[9]]*int(conf[9]))
+            self.label_saldo_total_billetest3.config(text=cajero[conf[10]]*int(conf[10]))
+            self.label_saldo_total_billetest4.config(text=cajero[conf[11]]*int(conf[11]))
+            self.label_saldo_total_billetest5.config(text=cajero[conf[12]]*int(conf[12]))
+            self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+            self.label_saldo_total_total__cajero.config(text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])+cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+
+        def vaciar():
+            self.label_antescargar_cantidad_monedast1.config(text="0")
+            self.label_antescargar_cantidad_monedast2.config(text="0")
+            self.label_antescargar_cantidad_monedast3.config(text="0")
+            self.label_antescargar_cantidad_total_monedas.config(text="0")
+            self.label_antescargar_cantidad_billetest1.config(text="0")
+            self.label_antescargar_cantidad_billetest2.config(text="0")
+            self.label_antescargar_cantidad_billetest3.config(text="0")
+            self.label_antescargar_cantidad_billetest4.config(text="0")
+            self.label_antescargar_cantidad_billetest5.config(text="0")
+            self.label_antescargar_cantidad_total_billetes.config(text="0")
+
+            self.label_antescargar_total_monedast1.config(text="0")
+            self.label_antescargar_total_monedast2.config(text="0")
+            self.label_antescargar_total_monedast3.config(text="0")
+            self.label_antescargar_total_total_monedas.config(text="0")
+            self.label_antescargar_total_billetest1.config(text="0")
+            self.label_antescargar_total_billetest2.config(text="0")
+            self.label_antescargar_total_billetest3.config(text="0")
+            self.label_antescargar_total_billetest4.config(text="0")
+            self.label_antescargar_total_billetest5.config(text="0")
+            self.label_antescargar_total_total_billetes.config(text="0")
+
+            self.label_carga_total_monedast1.config(text="0")
+            self.label_carga_total_monedast2.config(text="0")
+            self.label_carga_total_monedast3.config(text="0")
+            self.label_carga_total_total_monedas.config(text="0")
+            self.label_carga_total_billetest1.config(text="0")
+            self.label_carga_total_billetest2.config(text="0")
+            self.label_carga_total_billetest3.config(text="0")
+            self.label_carga_total_billetest4.config(text="0")
+            self.label_carga_total_billetest5.config(text="0")
+            self.label_carga_total_total_billetes.config(text="0")
+
+            self.label_saldo_cantidad_monedast1.config(text="0")
+            self.label_saldo_cantidad_monedast2.config(text="0")
+            self.label_saldo_cantidad_monedast3.config(text="0")
+            self.label_saldo_cantidad_total_monedas.config(text="0")
+            self.label_saldo_cantidad_billetest1.config(text="0")
+            self.label_saldo_cantidad_billetest2.config(text="0")
+            self.label_saldo_cantidad_billetest3.config(text="0")
+            self.label_saldo_cantidad_billetest4.config(text="0")
+            self.label_saldo_cantidad_billetest5.config(text="0")
+            self.label_saldo_cantidad_total_billetes.config(text="0")
             
+            self.label_saldo_total_monedast1.config(text="0")
+            self.label_saldo_total_monedast2.config(text="0")
+            self.label_saldo_total_monedast3.config(text="0")
+            self.label_saldo_total_total_monedas.config(text="0")
+            self.label_saldo_total_billetest1.config(text="0")
+            self.label_saldo_total_billetest2.config(text="0")
+            self.label_saldo_total_billetest3.config(text="0")
+            self.label_saldo_total_billetest4.config(text="0")
+            self.label_saldo_total_billetest5.config(text="0")
+            self.label_saldo_total_total_billetes.config(text="0")
+            self.label_saldo_total_total__cajero.config(text="0")
+
             f = open('cajero.dat','w')
             f.write(str(cajero))
             f.close()
-
-    
-            
+   
         boton_Ok = tk.Button(self.canvas_cargar, text="Ok",command=guardar_cajero)
-        boton_Ok.grid(row=22, column=2)
+        boton_Ok.grid(row=22, column=3)
 
         boton_cancelar = tk.Button(self.canvas_cargar, text="Cancelar",command=self.ventana_cambiar_menu)
-        boton_cancelar.grid(row=22, column=3)
+        boton_cancelar.grid(row=22, column=4)
 
-        boton_vaciar_cajero = tk.Button(self.canvas_cargar, text="Vaciar cajero")
-        boton_vaciar_cajero.grid(row=22, column=4)
-
-     
+        boton_vaciar_cajero = tk.Button(self.canvas_cargar, text="Vaciar cajero",command=vaciar)
+        boton_vaciar_cajero.grid(row=22, column=5)
         self.canvas_cargar.mainloop()
 
     def ventana_cambiar_menu(self):
@@ -511,7 +569,7 @@ class SaldoCajero:
     def __init__(self, master):
     
         self.master = master
-        self.master.geometry('800x500')
+        self.master.geometry('700x3500')
         self.canvas_saldo = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_saldo.place(x=0,y=0)
         self.label_saldo = Label(self.canvas_saldo, text='PARQUEO - SALDO DEL CAJERO')
@@ -720,7 +778,7 @@ class IngresosDinero:
     def __init__(self, master):
     
         self.master = master
-        self.master.geometry('500x500')
+        self.master.geometry('600x250')
         self.canvas_ingresos = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_ingresos.place(x=0,y=0)
         self.label_ingresos = Label(self.canvas_ingresos, text='PARQUEO - INGRESOS DE DINERO')
@@ -779,7 +837,7 @@ class EntradaVehiculo:
     def __init__(self, master):
     
         self.master = master
-        self.master.geometry('500x500')
+        self.master.geometry('500x300')
         self.canvas_entrada = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_entrada.place(x=0,y=0)
         self.label_entrada = Label(self.canvas_entrada, text='PARQUEO - ENTRADA DE VEHÍCULO')
@@ -972,6 +1030,69 @@ class CajeroParqueo:
 
     def ventana_cambiar_menu(self):
         self.canvas_cajero.destroy()
+        self.master.geometry('500x500')
+        MenuPrincipal(self.master)
+
+class SalidaVehiculo:
+    def __init__(self, master):
+    
+        self.master = master
+        self.master.geometry('450x100')
+        self.canvas_salida = Canvas(self.master, width=500,height=500, highlightthickness=0)
+        self.canvas_salida.place(x=0,y=0)
+        self.label_salida = Label(self.canvas_salida, text='PARQUEO - SALIDA DE VEHÍCULO')
+        self.label_salida.grid(row=0,column=0)
+
+        self.label_salida_placa = Label(self.canvas_salida, text="SU PLACA")
+        self.label_salida_placa.grid(row=1,column=0)
+
+        self.label_salida_placa_1 = tk.Entry(self.canvas_salida)
+        self.label_salida_placa_1.grid(row=1,column=3)
+
+        boton_Ok = tk.Button(self.canvas_salida, text="Ok")
+        boton_Ok.grid(row=22, column=6)
+
+        boton_cancelar = tk.Button(self.canvas_salida, text="Cancelar",command=self.ventana_cambiar_menu)
+        boton_cancelar.grid(row=22, column=7)
+
+     
+        self.canvas_salida.mainloop()
+
+    def ventana_cambiar_menu(self):
+        self.canvas_salida.destroy()
+        self.master.geometry('500x500')
+        MenuPrincipal(self.master)
+class AcercaDe:
+
+    def __init__(self, master):
+    
+        self.master = master
+        self.master.geometry('500x300')
+        self.canvas_acerca_de = Canvas(self.master,width=500,height=500, highlightthickness=0)
+        self.canvas_acerca_de.place(x=0,y=0)
+        self.label_acerca_de = Label(self.canvas_acerca_de, text='ACERCA DE')
+        self.label_acerca_de.place(x=175,y=20,width=150)
+
+        self.label_acerca_de_nombre = Label(self.canvas_acerca_de, text='PROYECTO PARQUEO')
+        self.label_acerca_de_nombre.place(x=175,y=60,width=150)
+
+        self.label_acerca_de_version = Label(self.canvas_acerca_de, text='Version 1.0')
+        self.label_acerca_de_version.place(x=175,y=100,width=150)
+
+        self.label_acerca_de_fecha = Label(self.canvas_acerca_de, text='21 de junio 2022')
+        self.label_acerca_de_fecha.place(x=175,y=140,width=150)
+
+        self.label_acerca_de_autor = Label(self.canvas_acerca_de, text='Dina Monge Sandoval')
+        self.label_acerca_de_autor.place(x=175,y=180,width=150)
+
+        boton_cancelar = tk.Button(self.canvas_acerca_de, text="Volver al menu principal",command=self.ventana_cambiar_menu)
+        boton_cancelar.place(x=175,y=220,width=150)
+
+     
+        self.canvas_acerca_de.mainloop()
+
+    def ventana_cambiar_menu(self):
+        self.canvas_acerca_de.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
