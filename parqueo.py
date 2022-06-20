@@ -5,8 +5,10 @@
 # Proyecto 3: parqueo     #
 ###########################
 
+import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
+import os
 
 class MenuPrincipal:
     def __init__(self, master):
@@ -46,6 +48,27 @@ class MenuPrincipal:
         self.canvas_menu.destroy()
         self.master.geometry('500x500')
         Configuracion(self.master)
+    def ventana_cambiar_cargar_cajero(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        CargarCajero(self.master)
+    def ventana_cambiar_saldo_cajero(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        SaldoCajero(self.master)
+    def ventana_cambiar_ingresos_dinero(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        IngresosDinero(self.master)
+    def ventana_cambiar_entrada_vehiculo(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        EntradaVehiculo(self.master)
+    def ventana_cambiar_cajero_parqueo(self):
+        self.canvas_menu.destroy()
+        self.master.geometry('500x500')
+        CajeroParqueo(self.master)
+
 
 class Configuracion:
     def __init__(self, master):
@@ -190,7 +213,6 @@ class Configuracion:
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
- 
 class CargarCajero:
     def __init__(self, master):
 
@@ -686,7 +708,6 @@ class SaldoCajero:
 
         boton_cancelar = tk.Button(self.canvas_saldo, text="Cancelar",command=self.ventana_cambiar_menu)
         boton_cancelar.grid(row=22, column=3)
-
      
         self.canvas_saldo.mainloop()
 
@@ -753,6 +774,207 @@ class IngresosDinero:
         self.canvas_ingresos.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
+
+class EntradaVehiculo:
+    def __init__(self, master):
+    
+        self.master = master
+        self.master.geometry('500x500')
+        self.canvas_entrada = Canvas(self.master, width=500,height=500, highlightthickness=0)
+        self.canvas_entrada.place(x=0,y=0)
+        self.label_entrada = Label(self.canvas_entrada, text='PARQUEO - ENTRADA DE VEHÍCULO')
+        self.label_entrada.grid(row=0,column=0)
+
+        self.label_entrada_espacios_disponibles = Label(self.canvas_entrada, text="Espacios disponibles")
+        self.label_entrada_espacios_disponibles.grid(row=1,column=0)
+        self.label_entrada_espacios_disponibles_1 = Label(self.canvas_entrada, text="XXXXXXXXXX")
+        self.label_entrada_espacios_disponibles_1.grid(row=1,column=3)
+        self.label_entrada_espacios_1 = Label(self.canvas_entrada, text="")
+        self.label_entrada_espacios_1.grid(row=2,column=3)
+
+        self.label_entrada_placa = Label(self.canvas_entrada, text="SU PLACA")
+        self.label_entrada_placa.grid(row=3,column=0)
+
+        self.label_entrada_placa_1 = tk.Entry(self.canvas_entrada)
+        self.label_entrada_placa_1.grid(row=3,column=3)
+        
+        self.label_entrada_espacios_2 = Label(self.canvas_entrada, text="")
+        self.label_entrada_espacios_2.grid(row=4,column=3)
+
+        self.label_entrada_campo = Label(self.canvas_entrada, text="Campo asigando")
+        self.label_entrada_campo.grid(row=5,column=0)
+        self.label_entrada_campo_1 = Label(self.canvas_entrada, text="XXXXXXXXXX")
+        self.label_entrada_campo_1.grid(row=5,column=3)
+        self.label_entrada_espacios_3 = Label(self.canvas_entrada, text="")
+        self.label_entrada_espacios_3.grid(row=6,column=3)
+
+        self.label_entrada_hora_entrada = Label(self.canvas_entrada, text="Hora de entrada")
+        self.label_entrada_hora_entrada.grid(row=7,column=0)
+        self.label_entrada_hora_entrada_1 = Label(self.canvas_entrada, text="hh:mm dd/mm/aaaa")
+        self.label_entrada_hora_entrada_1.grid(row=7,column=3)
+        self.label_entrada_espacios_4 = Label(self.canvas_entrada, text="")
+        self.label_entrada_espacios_4.grid(row=8,column=3)
+
+        self.label_entrada_precio = Label(self.canvas_entrada, text="Precio por hora")
+        self.label_entrada_precio.grid(row=9,column=0)
+        self.label_entrada_precio_1 = Label(self.canvas_entrada, text="XXXXXXXXXX")
+        self.label_entrada_precio_1.grid(row=9,column=3)
+
+
+        boton_Ok = tk.Button(self.canvas_entrada, text="Ok")
+        boton_Ok.grid(row=22, column=6)
+
+        boton_cancelar = tk.Button(self.canvas_entrada, text="Cancelar",command=self.ventana_cambiar_menu)
+        boton_cancelar.grid(row=22, column=7)
+
+     
+        self.canvas_entrada.mainloop()
+
+    def ventana_cambiar_menu(self):
+        self.canvas_entrada.destroy()
+        self.master.geometry('500x500')
+        MenuPrincipal(self.master)
+
+class CajeroParqueo:
+    def __init__(self, master):
+    
+        self.master = master
+        self.master.geometry('600x500')
+        self.canvas_cajero = Canvas(self.master, width=500,height=500, highlightthickness=0)
+        self.canvas_cajero.place(x=0,y=0)
+        self.label_cajero = Label(self.canvas_cajero, text='CAJERO DEL PARQUEO')
+        self.label_cajero.grid(row=0,column=0)
+
+        self.label_cajero_espacio1 = Label(self.canvas_cajero, text='                    ')
+        self.label_cajero_espacio1.grid(row=0,column=2)
+        self.label_cajero_por_hora = Label(self.canvas_cajero, text='XXXXX POR HORA')
+        self.label_cajero_por_hora.grid(row=0,column=3)
+
+        self.label_cajero_espacio2 = Label(self.canvas_cajero, text='')
+        self.label_cajero_espacio2.grid(row=1,column=0)
+        self.label_cajero_paso1 = Label(self.canvas_cajero, text='Paso 1: SU PLACA')
+        self.label_cajero_paso1.grid(row=2,column=0)
+        self.label_cajero_espacio3 = Label(self.canvas_cajero, text='    ')
+        self.label_cajero_espacio3.grid(row=2,column=1)
+
+        self.label_cajero_paso1_1 = tk.Entry(self.canvas_cajero)
+        self.label_cajero_paso1_1.grid(row=2, column=2)  
+    
+        self.label_cajero_espacio4 = Label(self.canvas_cajero, text=' ')
+        self.label_cajero_espacio4.grid(row=3,column=0)
+
+        self.label_cajero_hora_entrada = Label(self.canvas_cajero, text='HORA DE ENTRADA')
+        self.label_cajero_hora_entrada.grid(row=4,column=0)
+        self.label_cajero_hora_entrada_1 = Label(self.canvas_cajero, text='HH:MM')
+        self.label_cajero_hora_entrada_1.grid(row=4,column=1)
+        self.label_cajero_hora_entrada_2 = Label(self.canvas_cajero, text='dd/mm/aaaa')
+        self.label_cajero_hora_entrada_2.grid(row=4,column=2)
+
+        self.label_cajero_a_pagar = Label(self.canvas_cajero, text='A PAGAR')
+        self.label_cajero_a_pagar.grid(row=4,column=6)
+        self.label_cajero_a_pagar_1 = Label(self.canvas_cajero, text='XXXXXX', bg="#ff6961")
+        self.label_cajero_a_pagar_1.grid(row=5,column=6)
+
+        self.label_cajero_hora_salida = Label(self.canvas_cajero, text='HORA DE SALIDA')
+        self.label_cajero_hora_salida.grid(row=5,column=0)
+        self.label_cajero_hora_salida_1 = Label(self.canvas_cajero, text='HH:MM')
+        self.label_cajero_hora_salida_1.grid(row=5,column=1)
+        self.label_cajero_hora_salida_2 = Label(self.canvas_cajero, text='dd/mm/aaaa')
+        self.label_cajero_hora_salida_2.grid(row=5,column=2)
+
+        self.label_cajero_tiempo_cobrado = Label(self.canvas_cajero, text='TIEMPO COBRADO')
+        self.label_cajero_tiempo_cobrado.grid(row=6,column=0)
+        self.label_cajero_tiempo_cobrado_1 = Label(self.canvas_cajero, text='XXh')
+        self.label_cajero_tiempo_cobrado_1.grid(row=6,column=1)
+        self.label_cajero_tiempo_cobrado_2 = Label(self.canvas_cajero, text='YYm')
+        self.label_cajero_tiempo_cobrado_2.grid(row=6,column=2)
+        self.label_cajero_tiempo_cobrado_3 = Label(self.canvas_cajero, text='zzzd')
+        self.label_cajero_tiempo_cobrado_3.grid(row=6,column=3)
+
+        self.label_cajero_espacio5 = Label(self.canvas_cajero, text='')
+        self.label_cajero_espacio5.grid(row=7,column=0)
+        self.label_cajero_paso2 = Label(self.canvas_cajero, text='Paso 2: SU PAGO EN:')
+        self.label_cajero_paso2.grid(row=8,column=0)
+        
+        self.label_cajero_paso2_monedas = Label(self.canvas_cajero, text='MONEDAS')
+        self.label_cajero_paso2_monedas.grid(row=8,column=1)
+        boton_1_monedas = tk.Button(self.canvas_cajero, text="50")
+        boton_1_monedas.grid(row=9, column=1)
+        boton_2_monedas = tk.Button(self.canvas_cajero, text="100")
+        boton_2_monedas.grid(row=10, column=1)
+        boton_3_monedas = tk.Button(self.canvas_cajero, text="500")
+        boton_3_monedas.grid(row=11, column=1)
+
+        self.label_cajero_paso2_billetes = Label(self.canvas_cajero, text='BILLETES')
+        self.label_cajero_paso2_billetes.grid(row=8,column=2)
+        boton_1_billetes = tk.Button(self.canvas_cajero, text="1000")
+        boton_1_billetes.grid(row=9, column=2)
+        boton_2_billetes = tk.Button(self.canvas_cajero, text="2000")
+        boton_2_billetes.grid(row=10, column=2)
+        boton_3_billetes = tk.Button(self.canvas_cajero, text="5000")
+        boton_3_billetes.grid(row=11, column=2)
+        boton_4_billetes = tk.Button(self.canvas_cajero, text="10000")
+        boton_4_billetes.grid(row=12, column=2)
+        boton_5_billetes = tk.Button(self.canvas_cajero, text="20000")
+        boton_5_billetes.grid(row=13, column=2)
+
+        self.label_cajero_paso2_tarjeta = Label(self.canvas_cajero, text='TARJETA DE CRÉDITO')
+        self.label_cajero_paso2_tarjeta.grid(row=8,column=3)
+
+        self.label_cajero_paso2_tarjeta1 = tk.Entry(self.canvas_cajero)
+        self.label_cajero_paso2_tarjeta1.grid(row=9, column=3)
+
+        self.label_cajero_pagado = Label(self.canvas_cajero, text='Pagado')
+        self.label_cajero_pagado.grid(row=9,column=6)
+        self.label_cajero_pagado1 = Label(self.canvas_cajero, text='XXXXXX', bg="#77dd77")
+        self.label_cajero_pagado1.grid(row=10,column=6)
+
+        self.label_cajero_cambio = Label(self.canvas_cajero, text='Cambio')
+        self.label_cajero_cambio.grid(row=11,column=6)
+        self.label_cajero_cambio1 = Label(self.canvas_cajero, text='XXXXXX',bg="#77dd77")
+        self.label_cajero_cambio1.grid(row=12,column=6)
+
+        self.label_cajero_espacio6 = Label(self.canvas_cajero, text='')
+        self.label_cajero_espacio6.grid(row=14,column=0)
+        self.label_cajero_paso3 = Label(self.canvas_cajero, text='Paso 3: SU CAMBIO EN:')
+        self.label_cajero_paso3.grid(row=15,column=0)
+
+        self.label_cajero_paso3_monedas = Label(self.canvas_cajero, text='MONEDAS')
+        self.label_cajero_paso3_monedas.grid(row=15,column=1)
+        self.label_cajero_paso3_monedas1 = Label(self.canvas_cajero, text='XX DE 50')
+        self.label_cajero_paso3_monedas1.grid(row=16,column=1)
+        self.label_cajero_paso3_monedas2 = Label(self.canvas_cajero, text='XX DE 100')
+        self.label_cajero_paso3_monedas2.grid(row=17,column=1)
+        self.label_cajero_paso3_monedas3 = Label(self.canvas_cajero, text='XX DE 500')
+        self.label_cajero_paso3_monedas3.grid(row=18,column=1)
+
+        self.label_cajero_paso3_billetes = Label(self.canvas_cajero, text='BILLETES')
+        self.label_cajero_paso3_billetes.grid(row=15,column=2)
+        self.label_cajero_paso3_billetes1 = Label(self.canvas_cajero, text='XX DE 1000')
+        self.label_cajero_paso3_billetes1.grid(row=16,column=2)
+        self.label_cajero_paso3_billetes2 = Label(self.canvas_cajero, text='XX DE 2000')
+        self.label_cajero_paso3_billetes2.grid(row=17,column=2)
+        self.label_cajero_paso3_billetes3 = Label(self.canvas_cajero, text='XX DE 5000')
+        self.label_cajero_paso3_billetes3.grid(row=18,column=2)
+        self.label_cajero_paso3_billetes4 = Label(self.canvas_cajero, text='XX DE 10000')
+        self.label_cajero_paso3_billetes4.grid(row=19,column=2)
+        self.label_cajero_paso3_billetes5 = Label(self.canvas_cajero, text='XX DE 20000')
+        self.label_cajero_paso3_billetes5.grid(row=20,column=2)
+
+        boton_anular = tk.Button(self.canvas_cajero, text="Anular el pago")
+        boton_anular.grid(row=21, column=6)
+        
+        boton_cancelar = tk.Button(self.canvas_cajero, text="Cancelar",command=self.ventana_cambiar_menu)
+        boton_cancelar.grid(row=21, column=7)
+
+     
+        self.canvas_cajero.mainloop()
+
+    def ventana_cambiar_menu(self):
+        self.canvas_cajero.destroy()
+        self.master.geometry('500x500')
+        MenuPrincipal(self.master)
+
 
 window = Tk()
 MenuPrincipal(window)
