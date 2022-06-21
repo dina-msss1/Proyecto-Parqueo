@@ -58,7 +58,7 @@ class MenuPrincipal: # Se creo una clase para el menu prinicpal
         self.boton = Button(self.canvas_menu, text='Salir', command=self.ventana_cambiar_salir)
         self.boton.place(x=175,y=380, width=150)
 
-    # Venatanas    
+    # Ventanas    
     def ventana_cambiar_configuracion(self):
         self.canvas_menu.destroy()
         self.master.geometry('500x500')
