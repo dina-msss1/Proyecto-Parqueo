@@ -902,7 +902,9 @@ class SaldoCajero:
         self.label_saldo_total_billetest5.grid(row=12,column=12)
         self.label_saldo_total_total_billetes = Label(self.canvas_saldo, text='0')
         self.label_saldo_total_total_billetes.grid(row=13,column=12)
+        
 
+                                               
         self.label_saldo_cantidad_monedast1.config(text=cajero[conf[5]])
         self.label_saldo_cantidad_monedast2.config(text=cajero[conf[6]])
         self.label_saldo_cantidad_monedast3.config(text=cajero[conf[7]])
@@ -925,18 +927,13 @@ class SaldoCajero:
         self.label_saldo_total_billetest5.config(text=cajero[conf[12]]*int(conf[12]))
         self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
        
-
         f = open('cajero.dat','w')
         f.write(str(cajero))
         f.close()
 
-        boton_Ok = tk.Button(self.canvas_saldo, text="Ok")
-        boton_Ok.grid(row=24, column=6)
+        boton_Ok = tk.Button(self.canvas_saldo, text="Ok",command=self.ventana_cambiar_menu)
+        boton_Ok.grid(row=24, column=0)
 
-        boton_cancelar = tk.Button(self.canvas_saldo, text="Cancelar",command=self.ventana_cambiar_menu)
-        boton_cancelar.grid(row=24, column=7)
-
-     
         self.canvas_saldo.mainloop()
 
     def ventana_cambiar_menu(self):
@@ -989,11 +986,8 @@ class IngresosDinero:
         self.label_ingresos_recibir1 = Label(self.canvas_ingresos, text='XXX.XXX.XXX')
         self.label_ingresos_recibir1 .grid(row=8,column=6)
 
-        boton_Ok = tk.Button(self.canvas_ingresos, text="Ok")
-        boton_Ok.grid(row=22, column=6)
-
-        boton_cancelar = tk.Button(self.canvas_ingresos, text="Cancelar",command=self.ventana_cambiar_menu)
-        boton_cancelar.grid(row=22, column=7)
+        boton_Ok = tk.Button(self.canvas_ingresos, text="Ok",command=self.ventana_cambiar_menu)
+        boton_Ok.grid(row=22, column=0)
 
      
         self.canvas_ingresos.mainloop()
@@ -1065,6 +1059,17 @@ class EntradaVehiculo:
 
 class CajeroParqueo:
     def __init__(self, master):
+
+
+        f = open('configuración.dat','r')
+
+        conf = []    
+        for line in f:
+            conf.append(line[:-1])
+        f.close()
+
+        f = open('cajero.dat','r')
+        cajero = eval(f.read())
     
         self.master = master
         self.master.geometry('600x500')
@@ -1126,24 +1131,24 @@ class CajeroParqueo:
         
         self.label_cajero_paso2_monedas = Label(self.canvas_cajero, text='MONEDAS')
         self.label_cajero_paso2_monedas.grid(row=8,column=1)
-        boton_1_monedas = tk.Button(self.canvas_cajero, text="50")
+        boton_1_monedas = tk.Button(self.canvas_cajero, text=conf[5])
         boton_1_monedas.grid(row=9, column=1)
-        boton_2_monedas = tk.Button(self.canvas_cajero, text="100")
+        boton_2_monedas = tk.Button(self.canvas_cajero, text=conf[6])
         boton_2_monedas.grid(row=10, column=1)
-        boton_3_monedas = tk.Button(self.canvas_cajero, text="500")
+        boton_3_monedas = tk.Button(self.canvas_cajero, text=conf[7])
         boton_3_monedas.grid(row=11, column=1)
 
         self.label_cajero_paso2_billetes = Label(self.canvas_cajero, text='BILLETES')
         self.label_cajero_paso2_billetes.grid(row=8,column=2)
-        boton_1_billetes = tk.Button(self.canvas_cajero, text="1000")
+        boton_1_billetes = tk.Button(self.canvas_cajero, text=conf[8])
         boton_1_billetes.grid(row=9, column=2)
-        boton_2_billetes = tk.Button(self.canvas_cajero, text="2000")
+        boton_2_billetes = tk.Button(self.canvas_cajero, text=conf[9])
         boton_2_billetes.grid(row=10, column=2)
-        boton_3_billetes = tk.Button(self.canvas_cajero, text="5000")
+        boton_3_billetes = tk.Button(self.canvas_cajero, text=conf[10])
         boton_3_billetes.grid(row=11, column=2)
-        boton_4_billetes = tk.Button(self.canvas_cajero, text="10000")
+        boton_4_billetes = tk.Button(self.canvas_cajero, text=conf[11])
         boton_4_billetes.grid(row=12, column=2)
-        boton_5_billetes = tk.Button(self.canvas_cajero, text="20000")
+        boton_5_billetes = tk.Button(self.canvas_cajero, text=conf[12])
         boton_5_billetes.grid(row=13, column=2)
 
         self.label_cajero_paso2_tarjeta = Label(self.canvas_cajero, text='TARJETA DE CRÉDITO')
@@ -1169,33 +1174,29 @@ class CajeroParqueo:
 
         self.label_cajero_paso3_monedas = Label(self.canvas_cajero, text='MONEDAS')
         self.label_cajero_paso3_monedas.grid(row=15,column=1)
-        self.label_cajero_paso3_monedas1 = Label(self.canvas_cajero, text='XX DE 50')
+        self.label_cajero_paso3_monedas1 = Label(self.canvas_cajero, text='XX DE '+conf[5])
         self.label_cajero_paso3_monedas1.grid(row=16,column=1)
-        self.label_cajero_paso3_monedas2 = Label(self.canvas_cajero, text='XX DE 100')
+        self.label_cajero_paso3_monedas2 = Label(self.canvas_cajero, text='XX DE '+conf[6])
         self.label_cajero_paso3_monedas2.grid(row=17,column=1)
-        self.label_cajero_paso3_monedas3 = Label(self.canvas_cajero, text='XX DE 500')
+        self.label_cajero_paso3_monedas3 = Label(self.canvas_cajero, text='XX DE '+conf[7])
         self.label_cajero_paso3_monedas3.grid(row=18,column=1)
 
         self.label_cajero_paso3_billetes = Label(self.canvas_cajero, text='BILLETES')
         self.label_cajero_paso3_billetes.grid(row=15,column=2)
-        self.label_cajero_paso3_billetes1 = Label(self.canvas_cajero, text='XX DE 1000')
+        self.label_cajero_paso3_billetes1 = Label(self.canvas_cajero, text='XX DE '+conf[8])
         self.label_cajero_paso3_billetes1.grid(row=16,column=2)
-        self.label_cajero_paso3_billetes2 = Label(self.canvas_cajero, text='XX DE 2000')
+        self.label_cajero_paso3_billetes2 = Label(self.canvas_cajero, text='XX DE '+conf[9])
         self.label_cajero_paso3_billetes2.grid(row=17,column=2)
-        self.label_cajero_paso3_billetes3 = Label(self.canvas_cajero, text='XX DE 5000')
+        self.label_cajero_paso3_billetes3 = Label(self.canvas_cajero, text='XX DE '+conf[10])
         self.label_cajero_paso3_billetes3.grid(row=18,column=2)
-        self.label_cajero_paso3_billetes4 = Label(self.canvas_cajero, text='XX DE 10000')
+        self.label_cajero_paso3_billetes4 = Label(self.canvas_cajero, text='XX DE '+conf[11])
         self.label_cajero_paso3_billetes4.grid(row=19,column=2)
-        self.label_cajero_paso3_billetes5 = Label(self.canvas_cajero, text='XX DE 20000')
+        self.label_cajero_paso3_billetes5 = Label(self.canvas_cajero, text='XX DE '+conf[12])
         self.label_cajero_paso3_billetes5.grid(row=20,column=2)
-
-        boton_anular = tk.Button(self.canvas_cajero, text="Anular el pago")
-        boton_anular.grid(row=21, column=6)
         
-        boton_cancelar = tk.Button(self.canvas_cajero, text="Cancelar",command=self.ventana_cambiar_menu)
-        boton_cancelar.grid(row=21, column=7)
+        boton_anular = tk.Button(self.canvas_cajero, text="Anular el pago",command=self.ventana_cambiar_menu)
+        boton_anular.grid(row=21, column=0)
 
-     
         self.canvas_cajero.mainloop()
 
     def ventana_cambiar_menu(self):
@@ -1219,13 +1220,9 @@ class SalidaVehiculo:
         self.label_salida_placa_1 = tk.Entry(self.canvas_salida)
         self.label_salida_placa_1.grid(row=1,column=3)
 
-        boton_Ok = tk.Button(self.canvas_salida, text="Ok")
-        boton_Ok.grid(row=22, column=6)
+        boton_Ok = tk.Button(self.canvas_salida, text="Ok",command=self.ventana_cambiar_menu)
+        boton_Ok.grid(row=22, column=7)
 
-        boton_cancelar = tk.Button(self.canvas_salida, text="Cancelar",command=self.ventana_cambiar_menu)
-        boton_cancelar.grid(row=22, column=7)
-
-     
         self.canvas_salida.mainloop()
 
     def ventana_cambiar_menu(self):
