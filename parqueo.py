@@ -24,6 +24,7 @@ class MenuPrincipal: # Se creo una clase para el menu prinicpal
     def __init__(self, master):
         self.master = master
         
+        # Botones de las ventanas
         self.canvas_menu = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_menu.place(x=0,y=0)
 
@@ -56,7 +57,8 @@ class MenuPrincipal: # Se creo una clase para el menu prinicpal
 
         self.boton = Button(self.canvas_menu, text='Salir', command=self.ventana_cambiar_salir)
         self.boton.place(x=175,y=380, width=150)
-        
+
+    # Venatanas    
     def ventana_cambiar_configuracion(self):
         self.canvas_menu.destroy()
         self.master.geometry('500x500')
@@ -99,6 +101,7 @@ class MenuPrincipal: # Se creo una clase para el menu prinicpal
 class Configuracion: # Se creo una clase para la ventana configuracion
     def __init__(self, master):
         
+        # Caracteristicas de la ventana
         self.master = master
         self.master.geometry('500x500')
         self.canvas_configuracion = Canvas(self.master, width=500,height=500, highlightthickness=0)
@@ -106,6 +109,7 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         self.label_configuracion = Label(self.canvas_configuracion, text='PARQUEO - CONFIGURACION')
         self.label_configuracion.place(x=10,y=10)
         
+        # Interfaz de la ventana de configuracion 
         self.label = Label(self.canvas_configuracion, text='Cantidad de espacios en el parqueo (entero >=1)')
         self.label.place(x=10,y=30)
         self.entrada_espacio = Entry(self.canvas_configuracion)
@@ -182,8 +186,10 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         self.boton = Button(self.canvas_configuracion, text='Cancelar', command=self.ventana_cambiar_menu)
         self.boton.place(x=250,y=465, width=100)
         
-    def guardar_configuracion(self):
+    def guardar_configuracion(self): # En caso de tocar el boton ok...
         f = open('configuración.dat', 'w')
+
+        # Restricciones
         espacio = self.entrada_espacio.get()
         if int(espacio) <1:
             return messagebox.showerror('Error', 'La cantidad de espacio debe de ser mayor o igual a 1')
@@ -222,7 +228,7 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         if int(billetes5) <0:
             return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
         
-        # Monedas
+        # Monedas (moneda anterior menor a la siguiente)
         if int(monedas1) > int(monedas2):
             return messagebox.showerror('Error', 'La moneda 1 debe ser menor a la moneda 2')
         if int(monedas1) > int(monedas3):
@@ -230,7 +236,7 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         if int(monedas2) > int(monedas3):
             return messagebox.showerror('Error', 'La moneda 2 debe ser menor a la moneda 3')
 
-        # Billetes
+        # Billetes (billete anterior menor al siguiente)
         if int(billetes1) > int(billetes2):
             return messagebox.showerror('Error', 'El billete 1 debe ser menor a el billete 2')
         if int(billetes1) > int(billetes3):
@@ -239,26 +245,24 @@ class Configuracion: # Se creo una clase para la ventana configuracion
             return messagebox.showerror('Error', 'El billete 1 debe ser menor a el billete 4')
         if int(billetes1) > int(billetes5):
             return messagebox.showerror('Error', 'El billete 1 debe ser menor a el billete 5')
-
         if int(billetes2) > int(billetes3):
             return messagebox.showerror('Error', 'El billete 2 debe ser menor a el billete 3')
         if int(billetes2) > int(billetes4):
             return messagebox.showerror('Error', 'El billete 2 debe ser menor a el billete 4')
         if int(billetes2) > int(billetes5):
             return messagebox.showerror('Error', 'El billete 2 debe ser menor a el billete 5')
-
         if int(billetes3) > int(billetes4):
             return messagebox.showerror('Error', 'El billete 3 debe ser menor a el billete 4')
         if int(billetes3) > int(billetes5):
             return messagebox.showerror('Error', 'El billete 3 debe ser menor a el billete 5')
-        
         if int(billetes4) > int(billetes5):
             return messagebox.showerror('Error', 'El billete 4 debe ser menor a el billete 5')
            
-        f.writelines([espacio+'\n', precio+'\n', pago+'\n', correo+'\n', minutos_salir+'\n', monedas1+'\n', monedas2+'\n', monedas3+'\n', billetes1+'\n', billetes2+'\n', billetes3+'\n', billetes4+'\n', billetes5+'\n'])
+        f.writelines([espacio+'\n', precio+'\n', pago+'\n', correo+'\n', minutos_salir+'\n', monedas1+'\n', monedas2+'\n', monedas3+'\n',\
+             billetes1+'\n', billetes2+'\n', billetes3+'\n', billetes4+'\n', billetes5+'\n'])
         f.close()
          
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_configuracion.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
@@ -267,6 +271,7 @@ class Configuracion: # Se creo una clase para la ventana configuracion
 class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
     def __init__(self, master):
 
+        # Se abre el archivo de configuracion y el de cajero para trabajar con sus datos
         f = open('configuración.dat','r')
 
         conf = []    
@@ -277,6 +282,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         f = open('cajero.dat','r')
         cajero = eval(f.read())
        
+       # Caracteristicas de la ventana Cargar cajero
         self.master = master
         self.master.geometry('800x400')
         self.canvas_cargar = Canvas(self.master, width=500,height=500, highlightthickness=0)
@@ -284,6 +290,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         self.label_cargar = Label(self.canvas_cargar, text='PARQUEO - CARGAR CAJERO')
         self.label_cargar.grid(row=0,column=0)
         
+        # Interfaz de la ventana
         self.label_cargar = Label(self.canvas_cargar, text='SALDO ANTES DE LA CARGA')
         self.label_cargar.grid(row=1,column=1,columnspan=3)
         self.label_cargar = Label(self.canvas_cargar, text='          CARGA')
@@ -293,7 +300,8 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         
         self.label_cargar = Label(self.canvas_cargar, text='DENOMINACIÓN')
         self.label_cargar.grid(row=2,column=0)
-        self.label_denominacion_monedast1 = Label(self.canvas_cargar, text='Monedas de '+conf[5])
+        self.label_denominacion_monedast1 = Label(self.canvas_cargar, text='Monedas de '+conf[5]) # Aqui es donde se hace uso de los archivos, esto es para colocar
+                                                                                                  # la moneda que el usuarios pidio
         self.label_denominacion_monedast1.grid(row=3,column=0)
         self.label_denominacion_monedast2 = Label(self.canvas_cargar, text='Monedas de '+conf[6])
         self.label_denominacion_monedast2.grid(row=4,column=0)
@@ -342,7 +350,8 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         self.label_antescargar_cantidad_billetest4.grid(row=11,column=1)
         self.label_antescargar_cantidad_billetest5 = Label(self.canvas_cargar, text=cajero[conf[12]])
         self.label_antescargar_cantidad_billetest5.grid(row=12,column=1)
-        self.label_antescargar_cantidad_total_billetes = Label(self.canvas_cargar, text=cajero[conf[8]]+cajero[conf[9]]+cajero[conf[10]]+cajero[conf[11]]+cajero[conf[12]])
+        self.label_antescargar_cantidad_total_billetes = Label(self.canvas_cargar, text=cajero[conf[8]]+cajero[conf[9]]+cajero[conf[10]]+\
+            cajero[conf[11]]+cajero[conf[12]])
         self.label_antescargar_cantidad_total_billetes.grid(row=13,column=1)
         
         self.label_cargar = Label(self.canvas_cargar, text='TOTAL')
@@ -353,7 +362,9 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         self.label_antescargar_total_monedast2.grid(row=4,column=2)
         self.label_antescargar_total_monedast3 = Label(self.canvas_cargar, text=cajero[conf[7]]*int(conf[7]))
         self.label_antescargar_total_monedast3.grid(row=5,column=2)
-        self.label_antescargar_total_total_monedas = Label(self.canvas_cargar, text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7]))
+        self.label_antescargar_total_total_monedas = Label(self.canvas_cargar, text=cajero[conf[5]]*int(conf[5])+\
+            cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7]))
+
         self.label_antescargar_total_total_monedas.grid(row=6,column=2)
         self.label_antescargar_total_espacio1 = Label(self.canvas_cargar, text='')
         self.label_antescargar_total_espacio1.grid(row=7,column=2)
@@ -367,7 +378,8 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         self.label_antescargar_total_billetest4.grid(row=11,column=2)
         self.label_antescargar_total_billetest5 = Label(self.canvas_cargar, text=cajero[conf[12]]*int(conf[12]))
         self.label_antescargar_total_billetest5.grid(row=12,column=2)
-        self.label_antescargar_total_total_billetes = Label(self.canvas_cargar, text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+        self.label_antescargar_total_total_billetes = Label(self.canvas_cargar, text=cajero[conf[8]]*int(conf[8])+\
+            cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
         self.label_antescargar_total_total_billetes.grid(row=13,column=2)
 
         self.label_cargar = Label(self.canvas_cargar, text='  CANTIDAD')
@@ -496,10 +508,9 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         self.label_saldo_total_total_cajero = Label(self.canvas_cargar, text='0')
         self.label_saldo_total_total_cajero.grid(row=15,column=12)
 
-        # Botones cargar cajero
-
-        def guardar_cajero():
-
+        def guardar_cajero(): # En caso de que se toque el boton de Ok
+            
+            # Restricciones
             moneda1 = self.label_carga_cantidad_monedast1.get()
             if int(moneda1) <0:
                 return messagebox.showerror('Error', "La cantidad de monedas de " + conf[5]+ " debe de ser mayor o igual a 1")
@@ -525,6 +536,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
             if int(billete5) <0:
                 return messagebox.showerror('Error', "La cantidad de billetes de " + conf[12]+ " debe de ser mayor o igual a 1")
 
+            # Lo que ya se tenia mas la nueva cantidad
             cajero[conf[5]] += int(self.label_carga_cantidad_monedast1.get())
             cajero[conf[6]] += int(self.label_carga_cantidad_monedast2.get())
             cajero[conf[7]] += int(self.label_carga_cantidad_monedast3.get())
@@ -534,20 +546,26 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
             cajero[conf[11]] += int(self.label_carga_cantidad_billetest4.get())
             cajero[conf[12]] += int(self.label_carga_cantidad_billetest5.get())
 
-            self.label_carga_cantidad_total_monedas.config(text=int(self.label_carga_cantidad_monedast1.get())+int(self.label_carga_cantidad_monedast2.get())+int(self.label_carga_cantidad_monedast3.get()))
-            self.label_carga_cantidad_total_billetes.config(text=int(self.label_carga_cantidad_billetest1.get())+int(self.label_carga_cantidad_billetest2.get())+int(self.label_carga_cantidad_billetest3.get())+int(self.label_carga_cantidad_billetest4.get())+int(self.label_carga_cantidad_billetest5.get()))
+            # Se realizan los calculos respectivos, ya sea sumas o multiplicaciones
+            self.label_carga_cantidad_total_monedas.config(text=int(self.label_carga_cantidad_monedast1.get())+int(self.label_carga_cantidad_monedast2.get())\
+                +int(self.label_carga_cantidad_monedast3.get()))
+            self.label_carga_cantidad_total_billetes.config(text=int(self.label_carga_cantidad_billetest1.get())+int(self.label_carga_cantidad_billetest2.get())\
+                +int(self.label_carga_cantidad_billetest3.get())+int(self.label_carga_cantidad_billetest4.get())+int(self.label_carga_cantidad_billetest5.get()))
 
             self.label_carga_total_monedast1.config(text=int(self.label_carga_cantidad_monedast1.get())*int(conf[5]))
             self.label_carga_total_monedast2.config(text=int(self.label_carga_cantidad_monedast2.get())*int(conf[6]))
             self.label_carga_total_monedast3.config(text=int(self.label_carga_cantidad_monedast3.get())*int(conf[7]))
-            self.label_carga_total_total_monedas.config(text=int(self.label_carga_cantidad_monedast1.get())*int(conf[5])+int(self.label_carga_cantidad_monedast2.get())*int(conf[6])+int(self.label_carga_cantidad_monedast3.get())*int(conf[7]))
+            self.label_carga_total_total_monedas.config(text=int(self.label_carga_cantidad_monedast1.get())*int(conf[5])+\
+                int(self.label_carga_cantidad_monedast2.get())*int(conf[6])+int(self.label_carga_cantidad_monedast3.get())*int(conf[7]))
 
             self.label_carga_total_billetest1.config(text=int(self.label_carga_cantidad_billetest1.get())*int(conf[8]))
             self.label_carga_total_billetest2.config(text=int(self.label_carga_cantidad_billetest2.get())*int(conf[9]))
             self.label_carga_total_billetest3.config(text=int(self.label_carga_cantidad_billetest3.get())*int(conf[10]))
             self.label_carga_total_billetest4.config(text=int(self.label_carga_cantidad_billetest4.get())*int(conf[11]))
             self.label_carga_total_billetest5.config(text=int(self.label_carga_cantidad_billetest5.get())*int(conf[12]))
-            self.label_carga_total_total_billetes.config(text=int(self.label_carga_cantidad_billetest1.get())*int(conf[8])+int(self.label_carga_cantidad_billetest2.get())*int(conf[9])+int(self.label_carga_cantidad_billetest3.get())*int(conf[10])+int(self.label_carga_cantidad_billetest4.get())*int(conf[11])+int(self.label_carga_cantidad_billetest5.get())*int(conf[12]))
+            self.label_carga_total_total_billetes.config(text=int(self.label_carga_cantidad_billetest1.get())*int(conf[8])+\
+                int(self.label_carga_cantidad_billetest2.get())*int(conf[9])+int(self.label_carga_cantidad_billetest3.get())\
+                    *int(conf[10])+int(self.label_carga_cantidad_billetest4.get())*int(conf[11])+int(self.label_carga_cantidad_billetest5.get())*int(conf[12]))
             
             self.label_saldo_cantidad_monedast1.config(text=cajero[conf[5]])
             self.label_saldo_cantidad_monedast2.config(text=cajero[conf[6]])
@@ -569,15 +587,18 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
             self.label_saldo_total_billetest3.config(text=cajero[conf[10]]*int(conf[10]))
             self.label_saldo_total_billetest4.config(text=cajero[conf[11]]*int(conf[11]))
             self.label_saldo_total_billetest5.config(text=cajero[conf[12]]*int(conf[12]))
-            self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
-            self.label_saldo_total_total_cajero.config(text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])+cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+            self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]\
+                *int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+            self.label_saldo_total_total_cajero.config(text=cajero[conf[5]]*int(conf[5])+cajero[conf[6]]*int(conf[6])+cajero[conf[7]]*int(conf[7])\
+                +cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
             
             f = open('cajero.dat','w')
             f.write(str(cajero))
             f.close()
             
-        def vaciar():
+        def vaciar(): # En caso de tocar el boton vaciar
 
+            # Se abre el archivo de configuracion y el de cajero para trabajar con sus datos
             f = open('configuración.dat','r')
 
             conf = []    
@@ -588,6 +609,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
             f = open('cajero.dat','r')
             cajero = eval(f.read())
 
+            # Los valores del archivo de cajero pasan a ser 0
             cajero[conf[5]] = int("0")
             cajero[conf[6]] = int("0")
             cajero[conf[7]] = int("0")
@@ -596,7 +618,8 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
             cajero[conf[10]] = int("0")
             cajero[conf[11]] = int("0")
             cajero[conf[12]] = int("0")
-                      
+            
+            # Los valores de toda la interfaz de la ventana pasa ser 0
             self.label_antescargar_cantidad_monedast1.config(text="0")
             self.label_antescargar_cantidad_monedast2.config(text="0")
             self.label_antescargar_cantidad_monedast3.config(text="0")
@@ -660,7 +683,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
             f.write(str(cajero))
             f.close()
 
-   
+        # Botones 
         boton_Ok = tk.Button(self.canvas_cargar, text="Ok",command=guardar_cajero)
         boton_Ok.grid(row=22, column=3)
 
@@ -671,7 +694,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
         boton_vaciar_cajero.grid(row=22, column=5)
         self.canvas_cargar.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_cargar.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
@@ -679,7 +702,7 @@ class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
 class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
     def __init__(self, master):
 
-
+        # Se abre el archivo de configuracion y el de cajero para trabajar con sus datos
         f = open('configuración.dat','r')
 
         conf = []    
@@ -690,6 +713,7 @@ class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
         f = open('cajero.dat','r')
         cajero = eval(f.read())
     
+        # Caracteristicas de la ventana
         self.master = master
         self.master.geometry('700x350')
         self.canvas_saldo = Canvas(self.master, width=500,height=500, highlightthickness=0)
@@ -697,6 +721,7 @@ class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
         self.label_saldo = Label(self.canvas_saldo, text='PARQUEO - SALDO DEL CAJERO')
         self.label_saldo.grid(row=0,column=0)
 
+        # Interfaz de la ventana
         self.label_saldo = Label(self.canvas_saldo, text='ENTRADAS')
         self.label_saldo.grid(row=1,column=1,columnspan=3)
         self.label_saldo = Label(self.canvas_saldo, text='              SALIDAS')
@@ -706,7 +731,8 @@ class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
         
         self.label_saldo = Label(self.canvas_saldo, text='DENOMINACIÓN')
         self.label_saldo.grid(row=2,column=0)
-        self.label_denominacion_monedast1 = Label(self.canvas_saldo, text='Monedas de '+conf[5])
+        self.label_denominacion_monedast1 = Label(self.canvas_saldo, text='Monedas de '+conf[5])# Aqui es donde se hace uso de los archivos, esto es para colocar
+                                                                                                  # la moneda que el usuarios pidio
         self.label_denominacion_monedast1.grid(row=3,column=0)
         self.label_denominacion_monedast2 = Label(self.canvas_saldo, text='Monedas de '+conf[6])
         self.label_denominacion_monedast2.grid(row=4,column=0)
@@ -799,7 +825,8 @@ class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
         self.label_entradas_total_billetest3.config(text=cajero[conf[10]]*int(conf[10]))
         self.label_entradas_total_billetest4.config(text=cajero[conf[11]]*int(conf[11]))
         self.label_entradas_total_billetest5.config(text=cajero[conf[12]]*int(conf[12]))
-        self.label_entradas_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+        self.label_entradas_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]\
+            *int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
 
         self.label_saldo = Label(self.canvas_saldo, text='  CANTIDAD')
         self.label_saldo.grid(row=2,column=6)
@@ -924,18 +951,20 @@ class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
         self.label_saldo_total_billetest3.config(text=cajero[conf[10]]*int(conf[10]))
         self.label_saldo_total_billetest4.config(text=cajero[conf[11]]*int(conf[11]))
         self.label_saldo_total_billetest5.config(text=cajero[conf[12]]*int(conf[12]))
-        self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])+cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
+        self.label_saldo_total_total_billetes.config(text=cajero[conf[8]]*int(conf[8])+cajero[conf[9]]*int(conf[9])+cajero[conf[10]]*int(conf[10])\
+            +cajero[conf[11]]*int(conf[11])+cajero[conf[12]]*int(conf[12]))
        
         f = open('cajero.dat','w')
         f.write(str(cajero))
         f.close()
 
+        # Boton
         boton_Ok = tk.Button(self.canvas_saldo, text="Ok",command=self.ventana_cambiar_menu)
         boton_Ok.grid(row=24, column=0)
 
         self.canvas_saldo.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_saldo.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
@@ -944,6 +973,8 @@ class IngresosDinero: # Se creo una clase para la ventana Ingresos de dinero
     def __init__(self, master):
     
         self.master = master
+
+        # Caracteristicas de la ventana Ingresos de dinero
         self.master.geometry('600x250')
         self.canvas_ingresos = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_ingresos.place(x=0,y=0)
@@ -983,13 +1014,13 @@ class IngresosDinero: # Se creo una clase para la ventana Ingresos de dinero
         self.label_ingresos_recibir1 = Label(self.canvas_ingresos, text='XXX.XXX.XXX')
         self.label_ingresos_recibir1 .grid(row=8,column=6)
 
+        # Boton
         boton_Ok = tk.Button(self.canvas_ingresos, text="Ok",command=self.ventana_cambiar_menu)
         boton_Ok.grid(row=22, column=0)
 
-     
         self.canvas_ingresos.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_ingresos.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
@@ -998,12 +1029,15 @@ class EntradaVehiculo: # Se creo una clase para la ventana Entrada del vehiculo
     def __init__(self, master):
     
         self.master = master
+
+        # Caracteristicas de la ventana Entrada del vehiculo
         self.master.geometry('500x300')
         self.canvas_entrada = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_entrada.place(x=0,y=0)
         self.label_entrada = Label(self.canvas_entrada, text='PARQUEO - ENTRADA DE VEHÍCULO')
         self.label_entrada.grid(row=0,column=0)
 
+        # Interfaz 
         self.label_entrada_espacios_disponibles = Label(self.canvas_entrada, text="Espacios disponibles")
         self.label_entrada_espacios_disponibles.grid(row=1,column=0)
         self.label_entrada_espacios_disponibles_1 = Label(self.canvas_entrada, text="XXXXXXXXXX")
@@ -1039,7 +1073,7 @@ class EntradaVehiculo: # Se creo una clase para la ventana Entrada del vehiculo
         self.label_entrada_precio_1 = Label(self.canvas_entrada, text="XXXXXXXXXX")
         self.label_entrada_precio_1.grid(row=9,column=3)
 
-
+        # Botones
         boton_Ok = tk.Button(self.canvas_entrada, text="Ok")
         boton_Ok.grid(row=22, column=6)
 
@@ -1049,15 +1083,15 @@ class EntradaVehiculo: # Se creo una clase para la ventana Entrada del vehiculo
      
         self.canvas_entrada.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_entrada.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
 class CajeroParqueo: # Se creo una clase para la ventana Cajero del parqueo
     def __init__(self, master):
-
-
+        
+        # Se abre el archivo de configuracion y el de cajero para trabajar con sus datos
         f = open('configuración.dat','r')
 
         conf = []    
@@ -1069,12 +1103,15 @@ class CajeroParqueo: # Se creo una clase para la ventana Cajero del parqueo
         cajero = eval(f.read())
     
         self.master = master
+
+        # Caracteristicas de la ventana Cajero del parqueo
         self.master.geometry('600x500')
         self.canvas_cajero = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_cajero.place(x=0,y=0)
         self.label_cajero = Label(self.canvas_cajero, text='CAJERO DEL PARQUEO')
         self.label_cajero.grid(row=0,column=0)
 
+        # Interfaz 
         self.label_cajero_espacio1 = Label(self.canvas_cajero, text='                    ')
         self.label_cajero_espacio1.grid(row=0,column=2)
         self.label_cajero_por_hora = Label(self.canvas_cajero, text='XXXXX POR HORA')
@@ -1128,7 +1165,8 @@ class CajeroParqueo: # Se creo una clase para la ventana Cajero del parqueo
         
         self.label_cajero_paso2_monedas = Label(self.canvas_cajero, text='MONEDAS')
         self.label_cajero_paso2_monedas.grid(row=8,column=1)
-        boton_1_monedas = tk.Button(self.canvas_cajero, text=conf[5])
+        boton_1_monedas = tk.Button(self.canvas_cajero, text=conf[5]) # Aqui es donde se hace uso de los archivos, esto es para colocar
+                                                                      # la moneda que el usuarios pidio
         boton_1_monedas.grid(row=9, column=1)
         boton_2_monedas = tk.Button(self.canvas_cajero, text=conf[6])
         boton_2_monedas.grid(row=10, column=1)
@@ -1191,12 +1229,13 @@ class CajeroParqueo: # Se creo una clase para la ventana Cajero del parqueo
         self.label_cajero_paso3_billetes5 = Label(self.canvas_cajero, text='XX DE '+conf[12])
         self.label_cajero_paso3_billetes5.grid(row=20,column=2)
         
+        # Boton 
         boton_anular = tk.Button(self.canvas_cajero, text="Anular el pago",command=self.ventana_cambiar_menu)
         boton_anular.grid(row=21, column=0)
 
         self.canvas_cajero.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_cajero.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
@@ -1205,6 +1244,8 @@ class SalidaVehiculo: # Se creo una clase para la ventana Salida del vehiculo
     def __init__(self, master):
     
         self.master = master
+
+        # Caracteristicas de la ventana Salida del veniculo
         self.master.geometry('450x100')
         self.canvas_salida = Canvas(self.master, width=500,height=500, highlightthickness=0)
         self.canvas_salida.place(x=0,y=0)
@@ -1217,12 +1258,13 @@ class SalidaVehiculo: # Se creo una clase para la ventana Salida del vehiculo
         self.label_salida_placa_1 = tk.Entry(self.canvas_salida)
         self.label_salida_placa_1.grid(row=1,column=3)
 
+        # Boton
         boton_Ok = tk.Button(self.canvas_salida, text="Ok",command=self.ventana_cambiar_menu)
         boton_Ok.grid(row=22, column=7)
 
         self.canvas_salida.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_salida.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
@@ -1231,12 +1273,15 @@ class AcercaDe: # Se creo una clase para la ventana Acerca de
     def __init__(self, master):
     
         self.master = master
+
+        # Caracteristicas de la ventana Acerca de 
         self.master.geometry('500x300')
         self.canvas_acerca_de = Canvas(self.master,width=500,height=500, highlightthickness=0)
         self.canvas_acerca_de.place(x=0,y=0)
         self.label_acerca_de = Label(self.canvas_acerca_de, text='ACERCA DE')
         self.label_acerca_de.place(x=175,y=20,width=150)
 
+        # Datos sobre el proyecto
         self.label_acerca_de_nombre = Label(self.canvas_acerca_de, text='PROYECTO PARQUEO')
         self.label_acerca_de_nombre.place(x=175,y=60,width=150)
 
@@ -1249,12 +1294,13 @@ class AcercaDe: # Se creo una clase para la ventana Acerca de
         self.label_acerca_de_autor = Label(self.canvas_acerca_de, text='Dina Monge Sandoval')
         self.label_acerca_de_autor.place(x=175,y=180,width=150)
 
+        # Boton para volver al menu principal
         boton_cancelar = tk.Button(self.canvas_acerca_de, text="Volver al menu principal",command=self.ventana_cambiar_menu)
         boton_cancelar.place(x=175,y=220,width=150)
 
         self.canvas_acerca_de.mainloop()
 
-    def ventana_cambiar_menu(self):
+    def ventana_cambiar_menu(self): # Para volver al menu principal
         self.canvas_acerca_de.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
