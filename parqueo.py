@@ -5,12 +5,22 @@
 # Proyecto 3: parqueo     #
 ###########################
 
+# PARQUEO
+
+"""Desarrollar un programa para registrar las operaciones que se hacen en un estacionamiento
+de vehículos: las entradas y las salidas de los mismos, así como el cobro respectivo mediante
+una simulación de un cajero automático"""
+
+#######################################################################
+# MÓDULOS                                                             #
+#######################################################################
+
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import os
 
-class MenuPrincipal:
+class MenuPrincipal: # Se creo una clase para el menu prinicpal
     def __init__(self, master):
         self.master = master
         
@@ -86,7 +96,7 @@ class MenuPrincipal:
         self.master.destroy()
 
         
-class Configuracion:
+class Configuracion: # Se creo una clase para la ventana configuracion
     def __init__(self, master):
         
         self.master = master
@@ -123,7 +133,6 @@ class Configuracion:
         
         self.label = Label(self.canvas_configuracion, text='Tipos de moneda (Monedas de CR):')
         self.label.place(x=10,y=230)
-
         
         self.label = Label(self.canvas_configuracion, text='Moneda 1, la de menor denominación (ejemplo 50)')
         self.label.place(x=10,y=250)
@@ -212,6 +221,7 @@ class Configuracion:
         billetes5 = self.entrada_billetes5.get()
         if int(billetes5) <0:
             return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
+        
         # Monedas
         if int(monedas1) > int(monedas2):
             return messagebox.showerror('Error', 'La moneda 1 debe ser menor a la moneda 2')
@@ -244,8 +254,7 @@ class Configuracion:
         
         if int(billetes4) > int(billetes5):
             return messagebox.showerror('Error', 'El billete 4 debe ser menor a el billete 5')
-
-            
+           
         f.writelines([espacio+'\n', precio+'\n', pago+'\n', correo+'\n', minutos_salir+'\n', monedas1+'\n', monedas2+'\n', monedas3+'\n', billetes1+'\n', billetes2+'\n', billetes3+'\n', billetes4+'\n', billetes5+'\n'])
         f.close()
          
@@ -255,7 +264,7 @@ class Configuracion:
         MenuPrincipal(self.master)
 
  
-class CargarCajero:
+class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
     def __init__(self, master):
 
         f = open('configuración.dat','r')
@@ -375,8 +384,7 @@ class CargarCajero:
         self.label_carga_cantidad_monedast3 = tk.Entry(self.canvas_cargar)
         self.label_carga_cantidad_monedast3.insert(0,0)
         self.label_carga_cantidad_monedast3.grid(row=5,column=4)
-
-    
+   
         self.label_carga_cantidad_total_monedas = Label(self.canvas_cargar, text='0')
         self.label_carga_cantidad_total_monedas.grid(row=6,column=4)
         
@@ -401,8 +409,7 @@ class CargarCajero:
 
         self.label_carga_cantidad_billetest5 = tk.Entry(self.canvas_cargar)
         self.label_carga_cantidad_billetest5.insert(0,0)
-        self.label_carga_cantidad_billetest5.grid(row=12,column=4)
-        
+        self.label_carga_cantidad_billetest5.grid(row=12,column=4)        
 
         self.label_carga_cantidad_total_billetes = Label(self.canvas_cargar, text='0')
         self.label_carga_cantidad_total_billetes.grid(row=13,column=4)
@@ -488,8 +495,6 @@ class CargarCajero:
         self.label_saldo_total_espacio2.grid(row=14,column=12)
         self.label_saldo_total_total_cajero = Label(self.canvas_cargar, text='0')
         self.label_saldo_total_total_cajero.grid(row=15,column=12)
-
-
 
         # Botones cargar cajero
 
@@ -591,8 +596,7 @@ class CargarCajero:
             cajero[conf[10]] = int("0")
             cajero[conf[11]] = int("0")
             cajero[conf[12]] = int("0")
-
-                       
+                      
             self.label_antescargar_cantidad_monedast1.config(text="0")
             self.label_antescargar_cantidad_monedast2.config(text="0")
             self.label_antescargar_cantidad_monedast3.config(text="0")
@@ -604,10 +608,8 @@ class CargarCajero:
             self.label_antescargar_cantidad_billetest5.config(text="0")
             self.label_antescargar_cantidad_total_billetes.config(text="0")
 
-
             self.label_carga_cantidad_total_monedas.config(text="0")
             self.label_carga_cantidad_total_billetes.config(text="0")
-
 
             self.label_antescargar_total_monedast1.config(text="0")
             self.label_antescargar_total_monedast2.config(text="0")
@@ -674,7 +676,7 @@ class CargarCajero:
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
-class SaldoCajero:
+class SaldoCajero: # Se creo una clase para la ventana Saldo del cajero
     def __init__(self, master):
 
 
@@ -727,7 +729,6 @@ class SaldoCajero:
         self.label_denominacion_total_billetes = Label(self.canvas_saldo, text='TOTAL DE BILLETES')
         self.label_denominacion_total_billetes.grid(row=13,column=0)
  
-
         self.label_saldo = Label(self.canvas_saldo, text='CANTIDAD')
         self.label_saldo.grid(row=2,column=1)
         self.label_entradas_cantidad_monedast1 = Label(self.canvas_saldo, text='0')
@@ -902,8 +903,6 @@ class SaldoCajero:
         self.label_saldo_total_billetest5.grid(row=12,column=12)
         self.label_saldo_total_total_billetes = Label(self.canvas_saldo, text='0')
         self.label_saldo_total_total_billetes.grid(row=13,column=12)
-        
-
                                                
         self.label_saldo_cantidad_monedast1.config(text=cajero[conf[5]])
         self.label_saldo_cantidad_monedast2.config(text=cajero[conf[6]])
@@ -941,7 +940,7 @@ class SaldoCajero:
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
-class IngresosDinero:
+class IngresosDinero: # Se creo una clase para la ventana Ingresos de dinero
     def __init__(self, master):
     
         self.master = master
@@ -956,14 +955,12 @@ class IngresosDinero:
 
         self.label_ingresos_inicio_1 = tk.Entry(self.canvas_ingresos)
         self.label_ingresos_inicio_1.grid(row=1,column=1)
-        
 
         self.label_ingresos_fin = Label(self.canvas_ingresos, text="Al dia")
         self.label_ingresos_fin.grid(row=2,column=0)
 
         self.label_ingresos_fin_1 = tk.Entry(self.canvas_ingresos)
         self.label_ingresos_fin_1.grid(row=2,column=1)
-        
 
         self.label_ingresos_espacio1 = Label(self.canvas_ingresos, text='')
         self.label_ingresos_espacio1.grid(row=3,column=0)
@@ -997,7 +994,7 @@ class IngresosDinero:
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
-class EntradaVehiculo:
+class EntradaVehiculo: # Se creo una clase para la ventana Entrada del vehiculo
     def __init__(self, master):
     
         self.master = master
@@ -1057,7 +1054,7 @@ class EntradaVehiculo:
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
-class CajeroParqueo:
+class CajeroParqueo: # Se creo una clase para la ventana Cajero del parqueo
     def __init__(self, master):
 
 
@@ -1204,7 +1201,7 @@ class CajeroParqueo:
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
 
-class SalidaVehiculo:
+class SalidaVehiculo: # Se creo una clase para la ventana Salida del vehiculo
     def __init__(self, master):
     
         self.master = master
@@ -1229,9 +1226,7 @@ class SalidaVehiculo:
         self.canvas_salida.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
-
-
-class AcercaDe:
+class AcercaDe: # Se creo una clase para la ventana Acerca de
 
     def __init__(self, master):
     
@@ -1257,7 +1252,6 @@ class AcercaDe:
         boton_cancelar = tk.Button(self.canvas_acerca_de, text="Volver al menu principal",command=self.ventana_cambiar_menu)
         boton_cancelar.place(x=175,y=220,width=150)
 
-     
         self.canvas_acerca_de.mainloop()
 
     def ventana_cambiar_menu(self):
@@ -1267,6 +1261,6 @@ class AcercaDe:
 
 window = Tk()
 MenuPrincipal(window)
-window.title('Proyecto')
+window.title('Proyecto Parqueo')
 window.geometry('500x500')
 window.mainloop()
