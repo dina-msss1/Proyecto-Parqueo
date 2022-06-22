@@ -195,7 +195,21 @@ class Configuracion: # Se creo una clase para la ventana configuracion
             return is_valid
 
         # Restricciones
-        espacio = self.entrada_espacio.get()
+        primeram = "5"
+        segundam = "10"
+        terceram = "25"
+        cuartam = "50"
+        quintam = "100"
+        sextam = "500"
+
+        primerb = "1000"
+        segundob = "2000"
+        tercerb = "5000"
+        cuartob = "10000"
+        quintob = "20000"
+        sextob = "50000"
+
+        espacio =  self.entrada_espacio.get()
         if int(espacio) <1:
             return messagebox.showerror('Error', 'La cantidad de espacio debe de ser mayor o igual a 1')
         precio = self.entrada_precio.get()
@@ -236,6 +250,24 @@ class Configuracion: # Se creo una clase para la ventana configuracion
             return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
         
         # Monedas (moneda anterior menor a la siguiente)
+        if int(monedas1) != int(primeram) and int(monedas1) != int(segundam) and int(monedas1) != int(terceram) and int(monedas1) != int(cuartam) and int(monedas1) != int(quintam) and int(monedas1) != int(sextam):
+            return messagebox.showerror('Error', 'La moneda 1  debe ser de Costa Rica')
+        if int(monedas2) != int(primeram) and int(monedas2) != int(segundam) and int(monedas2) != int(terceram) and int(monedas2) != int(cuartam) and int(monedas2) != int(quintam) and int(monedas2) != int(sextam):
+            return messagebox.showerror('Error', 'La moneda 2  debe ser de Costa Rica')
+        if int(monedas3) != int(primeram) and int(monedas3) != int(segundam) and int(monedas3) != int(terceram) and int(monedas3) != int(cuartam) and int(monedas3) != int(quintam) and int(monedas3) != int(sextam):
+            return messagebox.showerror('Error', 'La moneda 3  debe ser de Costa Rica')
+
+        if int(billetes1) != int(primerb) and int(billetes1) != int(segundob) and int(billetes1) != int(tercerb) and int(billetes1) != int(cuartob) and int(billetes1) != int(quintob) and int(billetes1) != int(sextob):
+            return messagebox.showerror('Error', 'El billete 1  debe ser de Costa Rica')
+        if int(billetes2) != int(primerb) and int(billetes2) != int(segundob) and int(billetes2) != int(tercerb) and int(billetes2) != int(cuartob) and int(billetes2) != int(quintob) and int(billetes2) != int(sextob):
+            return messagebox.showerror('Error', 'El billete 2  debe ser de Costa Rica')
+        if int(billetes3) != int(primerb) and int(billetes3) != int(segundob) and int(billetes3) != int(tercerb) and int(billetes3) != int(cuartob) and int(billetes3) != int(quintob) and int(billetes3) != int(sextob):
+            return messagebox.showerror('Error', 'El billete 3  debe ser de Costa Rica')
+        if int(billetes4) != int(primerb) and int(billetes4) != int(segundob) and int(billetes4) != int(tercerb) and int(billetes4) != int(cuartob) and int(billetes4) != int(quintob) and int(billetes4) != int(sextob):
+            return messagebox.showerror('Error', 'El billete 4  debe ser de Costa Rica')
+        if int(billetes5) != int(primerb) and int(billetes5) != int(segundob) and int(billetes5) != int(tercerb) and int(billetes5) != int(cuartob) and int(billetes5) != int(quintob) and int(billetes5) != int(sextob):
+            return messagebox.showerror('Error', 'El billete 5  debe ser de Costa Rica')
+
         if int(monedas1) > int(monedas2):
             return messagebox.showerror('Error', 'La moneda 1 debe ser menor a la moneda 2')
         if int(monedas1) > int(monedas3):
