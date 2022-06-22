@@ -15,11 +15,10 @@ una simulación de un cajero automático"""
 # MÓDULOS                                                             #
 #######################################################################
 import tkinter as tk
-from pyisemail import is_email 
+from pyisemail import is_email
 from tkinter import *
 from tkinter import messagebox
 import os
-
 
 class MenuPrincipal: # Se creo una clase para el menu prinicpal
     def __init__(self, master):
@@ -248,8 +247,8 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         billetes5 = self.entrada_billetes5.get()
         if int(billetes5) <0:
             return messagebox.showerror('Error', 'Los billetes deben de ser mayor o igual a 0')
-        
-        # Monedas (moneda anterior menor a la siguiente)
+    
+        # Validar que sea monedas de Costa Rica
         if int(monedas1) != int(primeram) and int(monedas1) != int(segundam) and int(monedas1) != int(terceram) and int(monedas1) != int(cuartam) and int(monedas1) != int(quintam) and int(monedas1) != int(sextam):
             return messagebox.showerror('Error', 'La moneda 1  debe ser de Costa Rica')
         if int(monedas2) != int(primeram) and int(monedas2) != int(segundam) and int(monedas2) != int(terceram) and int(monedas2) != int(cuartam) and int(monedas2) != int(quintam) and int(monedas2) != int(sextam):
@@ -268,6 +267,7 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         if int(billetes5) != int(primerb) and int(billetes5) != int(segundob) and int(billetes5) != int(tercerb) and int(billetes5) != int(cuartob) and int(billetes5) != int(quintob) and int(billetes5) != int(sextob):
             return messagebox.showerror('Error', 'El billete 5  debe ser de Costa Rica')
 
+        # Monedas (moneda anterior menor a la siguiente)
         if int(monedas1) > int(monedas2):
             return messagebox.showerror('Error', 'La moneda 1 debe ser menor a la moneda 2')
         if int(monedas1) > int(monedas3):
@@ -305,8 +305,6 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         self.canvas_configuracion.destroy()
         self.master.geometry('500x500')
         MenuPrincipal(self.master)
-
- 
 class CargarCajero: # Se creo una clase para la ventana Cargar Cajero
     def __init__(self, master):
 
