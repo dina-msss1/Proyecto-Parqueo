@@ -14,11 +14,12 @@ una simulación de un cajero automático"""
 #######################################################################
 # MÓDULOS                                                             #
 #######################################################################
-
 import tkinter as tk
+from pyisemail import is_email 
 from tkinter import *
 from tkinter import messagebox
 import os
+
 
 class MenuPrincipal: # Se creo una clase para el menu prinicpal
     def __init__(self, master):
@@ -185,9 +186,13 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         self.boton.place(x=145,y=465, width=100)
         self.boton = Button(self.canvas_configuracion, text='Cancelar', command=self.ventana_cambiar_menu)
         self.boton.place(x=250,y=465, width=100)
-        
+    
     def guardar_configuracion(self): # En caso de tocar el boton ok...
         f = open('configuración.dat', 'w')
+
+        def verificar_correo(correo_electronico): # verificar si un correo existe, si lo es, retorna True, de lo contrario False 
+            is_valid = is_email(correo_electronico,check_dns=True)
+            return is_valid
 
         # Restricciones
         espacio = self.entrada_espacio.get()
@@ -200,6 +205,8 @@ class Configuracion: # Se creo una clase para la ventana configuracion
         if float(pago) <0:
             return messagebox.showerror('Error', 'La precio debe de ser mayor o igual a 0')
         correo = self.entrada_correo.get()
+        if verificar_correo(correo)== False:
+             return messagebox.showerror('Error', 'Ingrese un correo valido')
         minutos_salir = self.entrada_minuto_salir.get()
         if int(minutos_salir) <0:
             return messagebox.showerror('Error', 'Los minutos maximos para salir deben de ser mayor o igual a 0')
